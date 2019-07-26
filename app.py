@@ -1,6 +1,8 @@
 import os
 import json
 
+import requests
+
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -14,10 +16,9 @@ def webhook():
     data = request.get_json()
 
     # We don't want to reply to ourselves!
-    if data['name'] != 'InfoBot':
-        msg = '{}, you sent "{}".'.format(data['name'], data['text'])
-        send_message(msg)
-
+    if data['text'] == 'weather':
+        weather = requests.get("api.openweathermap.org/data/2.5/weather?q=Chicago&APPID={3887bd167e909f96b57808bda8f98bbd}")
+        send_message(weather['main']['temp'])
     return "ok", 200
 
 
