@@ -1,8 +1,7 @@
 import os
 import json
 
-import requests
-
+import urllib
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -15,9 +14,9 @@ app = Flask(__name__)
 def webhook():
     data = request.get_json()
 
-    # We don't want to reply to ourselves!
     if data['text'] == 'weather':
-        weather = requests.get("api.openweathermap.org/data/2.5/weather?q=Chicago&APPID={3887bd167e909f96b57808bda8f98bbd}")
+        with urllib.request.urlopen("api.openweathermap.org/data/2.5/weather?q=Chicago&APPID=3887bd167e909f96b57808bda8f98bbd") as response:
+            weather = response.read();
         send_message(weather['main']['temp'])
     return "ok", 200
 
