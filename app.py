@@ -16,7 +16,7 @@ def webhook():
 
     if data['text'] == 'weather':
         with urllib.request.urlopen(
-                "https://api.openweathermap.org/data/2.5/weather?q=Chicago&APPID=3887bd167e909f96b57808bda8f98bbd") \
+                "https://api.openweathermap.org/data/2.5/weather?q=Chicago&APPID=3887bd167e909f96b57808bda8f98bbd&units=imperial") \
                 as response:
             weather = json.loads(response.read());
             print(weather["main"])
